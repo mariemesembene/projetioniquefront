@@ -1,0 +1,40 @@
+
+<ion-content >
+  <form   #f="ngForm">
+  <div class="padding">
+    
+    <div class="logo">
+      <ion-img style="width: 100%;" src="../assets/WhatsApp Image 2021-02-25 at 12.59.09.jpeg"></ion-img>
+      <!-- <ion-icon color="light" name="contact"></ion-icon> -->
+      <!-- <ion-icon color="light" name="cloudy-night"></ion-icon> -->
+      <!-- <img src="../../assets/logo.png"> -->
+
+  
+    </div>
+
+    <ion-item >
+      <ion-label ></ion-label>
+      <ion-input [(ngModel)]="registerUserData.email"  name="email " type="email" placeholder="Email"></ion-input>
+    </ion-item>
+
+    <ion-item>
+      <ion-label ></ion-label>
+      <ion-input name="password"[(ngModel)]="registerUserData.password" type="password" placeholder="Mot de passe"></ion-input>
+    </ion-item>
+
+    <ion-item lines="none">
+      <ion-button  style="color: 07AEEF;" fill="clear">Mot de passe oublié ?</ion-button>
+    </ion-item>
+
+    <ion-button routerLink="/accueil" (click)="registerUser()" Ro style="margin-top: 26%;" expand="block" shape="round" fill="outline">Connexion</ion-button>
+    <br>
+  
+
+    
+
+  </div>
+
+</form>
+
+</ion-content>
+

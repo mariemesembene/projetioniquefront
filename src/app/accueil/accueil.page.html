@@ -1,0 +1,52 @@
+
+
+<ion-content>
+  <div class="bloc1" >
+    
+      <div class="bloc2">
+        <ion-toolbar>
+          <ion-icon style="color: #07AEEF; width: 30%;" name="list-outline"></ion-icon>
+          <ion-img style="width: 14%; margin-top: -8%;margin-left: 40%;" src="../assets/WhatsApp Image 2021-02-25 at 12.59.09.jpeg"></ion-img>
+          </ion-toolbar>
+      </div>
+      
+     <div class="container-solde">
+<span ><p style="text-align: center ;">Mon solde disponible est de</p> </span>
+<span ><p style="text-align: center ; font-size: x-large;color:#07AEEF;">456700000</p> </span>
+      </div>
+   
+  </div>
+  
+  
+    
+    <ion-item  *ngFor="let l of list" style="background-color: aliceblue;" routerLink="{{l.url}}"  >
+    <ion-icon slot="start" name={{l.icone}} style="color: #FA4A0C;"></ion-icon>
+    <ion-label>
+    <h3>{{l.name}}</h3>
+    </ion-label>
+  </ion-item>
+
+ 
+  <ion-tabs>
+    <ion-tab-bar slot="bottom">
+      <ion-tab-button tab="schedule">
+        <ion-icon name="home-outline"></ion-icon>
+        
+      </ion-tab-button>
+  
+      <ion-tab-button tab="speakers">
+        <ion-icon name="sync-circle-outline"></ion-icon>
+      </ion-tab-button>
+  
+      <ion-tab-button tab="map">
+        <ion-icon name="reorder-three-outline"></ion-icon>
+       
+      </ion-tab-button>
+  
+      <ion-tab-button tab="about">
+        <ion-icon name="calculator-outline"></ion-icon>
+      </ion-tab-button>
+    </ion-tab-bar>
+  </ion-tabs>
+
+</ion-content>

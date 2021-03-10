@@ -1,0 +1,85 @@
+<ion-content>
+  <div class="content-header">
+      <ion-icon id="home" routerLink="/accueil" slot="start" name="home"></ion-icon>
+      <div id="logo-SA">
+      </div>
+      <div id="icone-depot">
+        <ion-icon name="return-up-forward-outline"></ion-icon>
+      </div>
+      <div id="title-header">
+       retrait
+      </div>
+     
+    </div>
+
+      <ion-item style="bottom: -24%;">
+      <ion-label position="floating" >Code  Transaction</ion-label>
+      <ion-input   placeholder="123-456-789"></ion-input>
+    </ion-item>
+   
+    <div id="content-menu-choice" padding >
+      <div class="content-menu" (click)="ShowAndHide(1)">
+      Emmetteur
+      <div class="menu-bar-bottom" [hidden]="hide"></div>
+      </div>
+      <div class="content-menu" (click)="ShowAndHide(2)">
+      Bénéficiare
+      <div class="menu-bar-bottom" [hidden]="!hide"></div>
+      </div>
+      </div>
+  
+    <div class="content-form-depot">
+     
+      <div [hidden]="hide" id="content-form-emmeteur">
+        <form [formGroup]="ClientDepot">        
+          <ion-item>
+            <ion-label position="floating" >Num CNI</ion-label>
+            <ion-input   placeholder="1990199800141"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating" >Nom Complet</ion-label>
+            <ion-input   placeholder="mareme"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating" >Telephone</ion-label>
+            <ion-input placeholder="779349340"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating" >Montant</ion-label>
+            <ion-input   placeholder="175000F"></ion-input>
+          </ion-item>
+          <ion-item>
+            <ion-label position="floating" >Date D'envoie</ion-label>
+            <ion-input type="input" name="DateEnvoi" id="DateEnvoi"  placeholder="11/05/2020"></ion-input>
+          </ion-item>
+        </form>
+      </div>
+  
+        <div [hidden]="!hide" id="content-form-beneficiaire">
+          <form [formGroup]="ClientRetrait">
+            <ion-item>
+              <ion-label position="floating" >Num CNI</ion-label>
+              <ion-input   placeholder="1990199800141"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating" >Nom Complet</ion-label>
+              <ion-input   placeholder="mareme"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating" >Telephone</ion-label>
+              <ion-input placeholder="779349340"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating" >Montant</ion-label>
+              <ion-input   placeholder="175000F"></ion-input>
+            </ion-item>
+            <ion-item>
+              <ion-label position="floating" >Date D'envoie</ion-label>
+              <ion-input type="input" name="DateEnvoi" id="DateEnvoi"  placeholder="11/05/2020"></ion-input>
+            </ion-item>
+          </form>
+          <ion-button (click)="Depot()" color="secondary"  style="position: relative;top:140px;width: 70%;margin: auto;height: 50px;" expand="block" shape="round" fill="outline" color="secondary">Valider</ion-button>
+      </div>
+    </div>
+  
+  </ion-content>
