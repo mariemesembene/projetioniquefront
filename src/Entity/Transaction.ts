@@ -8,8 +8,8 @@ export class Transaction {
       compteRetrait:{
         id:number
     }
- clientDepot:Client
- clientRetrait:Client
+ clients:Client
+ clientsRetrait:Client
  montant:number
  
        

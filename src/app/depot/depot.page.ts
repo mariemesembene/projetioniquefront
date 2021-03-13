@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Client } from 'src/Entity/Client';
+import { Transaction } from 'src/Entity/Transaction';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
 
@@ -12,6 +14,7 @@ import { AuthService } from '../auth.service';
 export class DepotPage implements OnInit {
 hide=false;
 ClientDepot:FormGroup
+
 ClientRetrait:FormGroup
   constructor(private fb:FormBuilder,private service:AuthService) { }
 
@@ -30,6 +33,8 @@ ClientRetrait:FormGroup
                 telephone:['', Validators.required],
                 
           })
+          
+
 }
 
   ShowAndHide(data:any)
@@ -40,20 +45,25 @@ ClientRetrait:FormGroup
   Depot()
   {
     
-    var data={
+    var data:Transaction={
       "compteDepot":
     {
         "id":1
     },
-    "clientDepot":
+    "compteRetrait":
+    {
+        "id":null
+    },
+    "clients":
     {
         "nomCompletClient":this.ClientDepot.get('nomComplet').value,
         "numeroCni":this.ClientDepot.get('numCIN').value,
         "telephone":this.ClientDepot.get('telephone').value
     },
-    "clientRetrait":
+    "clientsRetrait":
     {
         "nomCompletClient":this.ClientDepot.get('nomComplet').value,
+        "numeroCni":"",
         "telephone":this.ClientDepot.get('telephone').value
     },
     "montant":Number(this.ClientDepot.get('montant').value)

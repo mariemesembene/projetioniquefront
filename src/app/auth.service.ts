@@ -1,8 +1,10 @@
+
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { BehaviorSubject, from, Observable } from 'rxjs';
 import {environment} from '../environments/environment';
 import {Storage} from '@ionic/storage';
+import { Transaction } from 'src/Entity/Transaction';
 
 
 @Injectable({
@@ -29,17 +31,16 @@ export class AuthService {
 return !!this.token
   }
 
-  getToken() {
-    return localStorage.getItem('token')
-  }
+ 
 
   
-  logout() {
-    localStorage.removeItem("token");
-  }
-Depot(Transaction){
-  return this.httpclient.post<any>(environment.url + 'user/transactions',Transaction);
+  
+Depot(transactions:Transaction):Observable<Transaction>{
+  return this.httpclient.post<Transaction>(environment.url + 'user/transactions', transactions);
 }
+getransaction(Transaction){
+    return this.httpclient.get<any>(environment.url + 'user/transactions/code?code_transaction=' + Transaction);
+  }
  
 
   

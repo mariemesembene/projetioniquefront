@@ -1,85 +1,121 @@
 <ion-content>
-  <div class="content-header">
-      <ion-icon id="home" routerLink="/accueil" slot="start" name="home"></ion-icon>
-      <div id="logo-SA">
-      </div>
-      <div id="icone-depot">
-        <ion-icon name="return-up-forward-outline"></ion-icon>
-      </div>
-      <div id="title-header">
-       retrait
-      </div>
-     
-    </div>
 
-      <ion-item style="bottom: -24%;">
-      <ion-label position="floating" >Code  Transaction</ion-label>
-      <ion-input   placeholder="123-456-789"></ion-input>
-    </ion-item>
-   
-    <div id="content-menu-choice" padding >
+  <div class="content-header">
+    <ion-icon id="home" routerLink="/accueil" slot="start" name="home"></ion-icon>
+    <div id="logo-SA">
+    </div>
+    <div id="icone-depot">
+      <ion-icon name="return-up-forward-outline"></ion-icon>
+    </div>
+    <div id="title-header">
+    Retrait
+    </div>
+    <div id="bottom-bar">
+
+    </div>
+  </div>
+
+  <div class="content-form-depot">
+
+    <div class="container-code">
+
+      <ion-item>
+        <ion-label position="stacked" >Code de Transaction</ion-label>
+        <ion-input (keyup)="GetTransaction()" [(ngModel)]="code" name="code" ></ion-input>
+      </ion-item>
+    
+    </div>
+  <div class="container-field" [hidden]="show" >
+    <div id="content-menu-choice" padding>
       <div class="content-menu" (click)="ShowAndHide(1)">
-      Emmetteur
-      <div class="menu-bar-bottom" [hidden]="hide"></div>
+          Emmetteur
+          <div class="menu-bar-bottom"  [hidden]="hide">
+          </div>
       </div>
+
       <div class="content-menu" (click)="ShowAndHide(2)">
-      Bénéficiare
-      <div class="menu-bar-bottom" [hidden]="!hide"></div>
-      </div>
-      </div>
-  
-    <div class="content-form-depot">
-     
-      <div [hidden]="hide" id="content-form-emmeteur">
-        <form [formGroup]="ClientDepot">        
-          <ion-item>
-            <ion-label position="floating" >Num CNI</ion-label>
-            <ion-input   placeholder="1990199800141"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" >Nom Complet</ion-label>
-            <ion-input   placeholder="mareme"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" >Telephone</ion-label>
-            <ion-input placeholder="779349340"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" >Montant</ion-label>
-            <ion-input   placeholder="175000F"></ion-input>
-          </ion-item>
-          <ion-item>
-            <ion-label position="floating" >Date D'envoie</ion-label>
-            <ion-input type="input" name="DateEnvoi" id="DateEnvoi"  placeholder="11/05/2020"></ion-input>
-          </ion-item>
-        </form>
-      </div>
-  
-        <div [hidden]="!hide" id="content-form-beneficiaire">
-          <form [formGroup]="ClientRetrait">
-            <ion-item>
-              <ion-label position="floating" >Num CNI</ion-label>
-              <ion-input   placeholder="1990199800141"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating" >Nom Complet</ion-label>
-              <ion-input   placeholder="mareme"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating" >Telephone</ion-label>
-              <ion-input placeholder="779349340"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating" >Montant</ion-label>
-              <ion-input   placeholder="175000F"></ion-input>
-            </ion-item>
-            <ion-item>
-              <ion-label position="floating" >Date D'envoie</ion-label>
-              <ion-input type="input" name="DateEnvoi" id="DateEnvoi"  placeholder="11/05/2020"></ion-input>
-            </ion-item>
-          </form>
-          <ion-button (click)="Depot()" color="secondary"  style="position: relative;top:140px;width: 70%;margin: auto;height: 50px;" expand="block" shape="round" fill="outline" color="secondary">Valider</ion-button>
+        Bénéficiare
+        <div class="menu-bar-bottom" [hidden]="!hide"></div>
       </div>
     </div>
+    
+    <div [hidden]="hide" id="content-form-emmeteur" >
+      <ion-item>
+      <ion-label  class="ion-text-wrap">
+        Num CNI<br>
+        {{transaction.clients.numero_cni}}
+      </ion-label>
+    </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          Nom & Prenom<br>
+          {{transaction.clients.nomCompletClient}}
+                 </ion-label>
+      </ion-item>
   
-  </ion-content>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          Téléphone<br>
+          {{transaction.clients.telephone}}
+                </ion-label>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          Montant à envoyer<br>
+          {{transaction.montant}}
+              </ion-label>
+      </ion-item>
+  
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          Date d'envoi<br>
+          {{transaction.date_depot}}
+                </ion-label>
+      </ion-item>
+    </div>
+    
+    
+    
+
+      <div [hidden]="!hide" id="content-form-beneficiaire">
+        <ion-item>
+          <ion-label position="stacked" >N° CNI</ion-label>
+          <ion-input name="numCIN" #numCIN="ngModel" ngModel required ></ion-input>
+          <span *ngIf="numCIN.length==''">*Champ bligatoire</span>
+        </ion-item>
+        <div id="content">
+          <ion-item>
+          <ion-label class="ion-text-wrap">
+            Nom & Prenom<br>
+            {{transaction.clientsRetrait.nomCompletClient}}
+          </ion-label>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            Téléphone<br>
+            {{transaction.clientsRetrait.telephone}}
+          </ion-label>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            Montant à envoyer<br>
+            {{transaction.montant}}
+          </ion-label>
+        </ion-item>
+    
+        <ion-item>
+          <ion-label class="ion-text-wrap">
+            Date d'envoi<br>
+            {{transaction.date_depot}}  
+          </ion-label>
+        </ion-item>
+      </div>
+      <ion-button (click)="MakeRetrait(numCIN.value)" style="position: relative;"  color="secondary" expand="block" shape="round" fill="outline" color="secondary">Valider</ion-button>
+    </div>
+  </div>
+  </div> 
+ 
+</ion-content>

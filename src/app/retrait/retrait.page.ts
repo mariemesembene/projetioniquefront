@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Client } from 'src/Entity/Client';
+import { Transaction } from 'src/Entity/Transaction';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
 
@@ -11,74 +13,80 @@ import { AuthService } from '../auth.service';
 export class RetraitPage implements OnInit {
 
   hide=false;
-  ClientDepot:FormGroup
-  ClientRetrait:FormGroup
+  code="";
+  show=true;
+  clientRetrait:Client={
+    nomCompletClient:"",
+    numeroCni:"",
+    telephone:""
+  };
+  clientDepot:Client={
+    nomCompletClient:"",
+    numeroCni:"",
+    telephone:""
+  };
+  transaction:Transaction=
+  {
+    montant:0,
+    clientsRetrait:this.clientRetrait,
+    clients:this.clientDepot,
+    compteDepot:
+    {
+      id:1
+    },
+    compteRetrait:
+    {
+      id:null
+    }
+  };
+ 
     constructor(private fb:FormBuilder,private service:AuthService) { }
   
     ngOnInit() {
-      this.ClientDepot=this.fb.group(
-        {
-              nomComplet:['', Validators.required],
-              numCIN:['', Validators.required],
-              telephone:['', Validators.required],
-              montant:['', Validators.required]    
-          })
-  
-          this.ClientRetrait=this.fb.group(
-            {
-                  nomComplet:['', Validators.required],
-                  telephone:['', Validators.required],
-                  
-            })
+      
+     
   }
+  
   
     ShowAndHide(data:any)
     {
       this.hide=data==1?false:true;   
     }
   
-    Depot()
+    GetTransaction()
     {
-      
-      var data={
-        "compteDepot":
+      if (this.code.length==11)
       {
-          "id":1
-      },
-      "clientDepot":
-      {
-          "nomCompletClient":this.ClientDepot.get('nomComplet').value,
-          "numeroCni":this.ClientDepot.get('numCIN').value,
-          "telephone":this.ClientDepot.get('telephone').value
-      },
-      "clientRetrait":
-      {
-          "nomCompletClient":this.ClientDepot.get('nomComplet').value,
-          "telephone":this.ClientDepot.get('telephone').value
-      },
-      "montant":Number(this.ClientDepot.get('montant').value)
+        
+        this.service.getransaction(this.code).subscribe(
+          (response:any)=>
+          {
+            console.log(response["hydra:member"][0])
+            if (response["hydra:member"][0]['isRetired']==false)
+            {
+              console.log(response["hydra:member"][0])
+              this.show=false;
+              console.log( this.show)
+              this.transaction=response["hydra:member"][0];
+              this.clientDepot=this.transaction['clientDepot'];
+              this.clientRetrait=this.transaction['clientRetrait']
+              console.log(this.transaction);
+            }
+        
+   }
+        
+  
+        
+        )
       }
-      console.log(data);
-      this.service.Depot(data).subscribe(
-        (response:any)=>
-        {
-          Swal.fire({
-            title: 'Connexion reussie',
-            text: 'Connexion reussie',
-            icon: 'success',
-            
-          })
-        },
-        (error:any)=>
-        {
-          Swal.fire({
-            title: 'Connexion echec',
-            text: 'Connexion echec',
-            icon: 'error',
-          })
-          
-        }
-      )
-        }
+  
+      else
+      {
+        this.show=true
+      }    
+      
+    }
+    
+  
 
 }
