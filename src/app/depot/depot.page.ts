@@ -1,9 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { PopoverController } from '@ionic/angular';
 import { Client } from 'src/Entity/Client';
 import { Transaction } from 'src/Entity/Transaction';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
+import { PopoverComponent } from '../popover/popover.component';
+
+
 
 
 @Component({
@@ -14,25 +18,30 @@ import { AuthService } from '../auth.service';
 export class DepotPage implements OnInit {
 hide=false;
 ClientDepot:FormGroup
-
+montant:FormGroup
 ClientRetrait:FormGroup
-  constructor(private fb:FormBuilder,private service:AuthService) { }
+  constructor(private fb:FormBuilder,private popovercontroller:PopoverController  , private service:AuthService) { }
 
   ngOnInit() {
     this.ClientDepot=this.fb.group(
       {
-            nomComplet:['', Validators.required],
-            numCIN:['', Validators.required],
+            nomCompletClient:['', Validators.required],
+            numeroCni:['', Validators.required],
             telephone:['', Validators.required],
-            montant:['', Validators.required]    
+             
         })
 
         this.ClientRetrait=this.fb.group(
           {
-                nomComplet:['', Validators.required],
+                nomCompletClient:['', Validators.required],
                 telephone:['', Validators.required],
                 
           })
+          this.montant=this.fb.group(
+            {
+              montant:['', Validators.required],
+            }
+          )
           
 
 }
@@ -42,53 +51,22 @@ ClientRetrait:FormGroup
     this.hide=data==1?false:true;   
   }
 
-  Depot()
-  {
-    
-    var data:Transaction={
-      "compteDepot":
-    {
-        "id":1
-    },
-    "compteRetrait":
-    {
-        "id":null
-    },
-    "clients":
-    {
-        "nomCompletClient":this.ClientDepot.get('nomComplet').value,
-        "numeroCni":this.ClientDepot.get('numCIN').value,
-        "telephone":this.ClientDepot.get('telephone').value
-    },
-    "clientsRetrait":
-    {
-        "nomCompletClient":this.ClientDepot.get('nomComplet').value,
-        "numeroCni":"",
-        "telephone":this.ClientDepot.get('telephone').value
-    },
-    "montant":Number(this.ClientDepot.get('montant').value)
-    }
-    console.log(data);
-    this.service.Depot(data).subscribe(
-      (response:any)=>
-      {
-        Swal.fire({
-          title: 'Connexion reussie',
-          text: 'Connexion reussie',
-          icon: 'success',
-          
-        })
-      },
-      (error:any)=>
-      {
-        Swal.fire({
-          title: 'Connexion echec',
-          text: 'Connexion echec',
-          icon: 'error',
-        })
-        
-      }
-    )
+ 
+  
+    async  eventpopover(){
+        const modal = await this.popovercontroller.create({
+          component: PopoverComponent,
+          componentProps: {
+            'type':'confirmation',
+            'clientdepot':this.ClientDepot.value,
+            'clientretrait':this.ClientRetrait.value,
+            'montant':this.montant.value
+            
+          },
+          cssClass:"mainAlert"
+        });
+        modal.style.cssText = '--min-width: 300px; --max-width: 400px;  --height:500px;'
+        return await modal.present();
       }
     
   }

@@ -1,7 +1,7 @@
 export class Client {
     
         nomCompletClient:string
-        numeroCni: string
+        numero_cni: string
         telephone: string
     
        

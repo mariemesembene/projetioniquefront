@@ -42,10 +42,7 @@ const routes: Routes = [
     canActivate:[AuthGuard],
     loadChildren: () => import('./calculateur-frais/calculateur-frais.module').then( m => m.CalculateurFraisPageModule)
   },
-  {
-    path: 'popover',
-    loadChildren: () => import('./popover/popover.module').then( m => m.PopoverPageModule)
-  },
+ 
 ];
 
 @NgModule({

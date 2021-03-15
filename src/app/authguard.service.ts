@@ -6,7 +6,7 @@ import {Storage} from '@ionic/storage'
   providedIn: 'root'
 })
 export class AuthGuard implements CanActivate {
-
+token=""
   constructor(private auth: AuthService, private router: Router,private storage:Storage){}
   canActivate(): boolean{
     if (this.auth.loggedIn()){
@@ -16,8 +16,11 @@ export class AuthGuard implements CanActivate {
       this.router.navigate(['home'] )
       return false;
     }
-    const token=this.storage.get('token');
-    return (!!token)
+    this.storage.get('token').then((val)=>{
+      this.token=val;
+      return (!!this.token)
+});
+  
   }
   
 }

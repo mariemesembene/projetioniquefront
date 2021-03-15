@@ -19,7 +19,7 @@
   
   
     
-    <ion-item  *ngFor="let l of list" style="background-color: aliceblue;" routerLink="{{l.url}}"  >
+    <ion-item  *ngFor="let l of list" [hidden]="l.hide" style="background-color: aliceblue;" routerLink="{{l.url}}"  >
     <ion-icon slot="start" name={{l.icone}} style="color: #FA4A0C;"></ion-icon>
     <ion-label>
     <h3>{{l.name}}</h3>

@@ -1,9 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { JwtHelperService } from '@auth0/angular-jwt';
 import { Client } from 'src/Entity/Client';
 import { Transaction } from 'src/Entity/Transaction';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
+import {Storage} from '@ionic/storage';
 
 @Component({
   selector: 'app-retrait',
@@ -17,19 +19,19 @@ export class RetraitPage implements OnInit {
   show=true;
   clientRetrait:Client={
     nomCompletClient:"",
-    numeroCni:"",
+    numero_cni:"",
     telephone:""
   };
   clientDepot:Client={
     nomCompletClient:"",
-    numeroCni:"",
+    numero_cni:"",
     telephone:""
   };
-  transaction:Transaction=
+  transaction=
   {
     montant:0,
-    clientsRetrait:this.clientRetrait,
-    clients:this.clientDepot,
+    clientsRetrait:Client,
+    clients:Client,
     compteDepot:
     {
       id:1
@@ -40,53 +42,96 @@ export class RetraitPage implements OnInit {
     }
   };
  
-    constructor(private fb:FormBuilder,private service:AuthService) { }
   
-    ngOnInit() {
-      
-     
+  
+  
+  constructor(private service:AuthService,private storage:Storage) 
+  {}
+compte:any;  
+helper=new JwtHelperService();
+
+  ngOnInit() {
+
+  
   }
+
+ 
+ 
   
   
-    ShowAndHide(data:any)
+  ShowAndHide(data:any)
+  {
+    this.hide=data==1?false:true;   
+  }
+
+  GetTransaction()
+  {
+    if (this.code.length==11)
     {
-      this.hide=data==1?false:true;   
-    }
-  
-    GetTransaction()
-    {
-      if (this.code.length==11)
-      {
-        
-        this.service.getransaction(this.code).subscribe(
-          (response:any)=>
-          {
-            console.log(response["hydra:member"][0])
-            if (response["hydra:member"][0]['isRetired']==false)
-            {
-              console.log(response["hydra:member"][0])
-              this.show=false;
-              console.log( this.show)
-              this.transaction=response["hydra:member"][0];
-              this.clientDepot=this.transaction['clientDepot'];
-              this.clientRetrait=this.transaction['clientRetrait']
-              console.log(this.transaction);
-            }
-        
-   }
-        
-  
-        
-        )
-      }
-  
-      else
-      {
-        this.show=true
-      }    
       
+      this.service.getransaction(this.code).subscribe(
+        (response:any)=>
+        {
+          console.log(response)
+          if (response['hydra:member'][0]['isRetired']===false)
+          {
+            this.show=false;
+            this.transaction=response["hydra:member"][0];
+            this.clientDepot=this.transaction['clientDepot'];
+            this.clientRetrait=this.transaction['clientRetrait']
+            console.log(this.transaction);
+          }
+          else
+          alert('Code Déja utilisé');
+      },
+      
+      )
+    }
+
+    else
+    {
+      this.show=true
+    }    
+    
+  }
+    MakeRetrait(numCIN:string)
+    {
+      var  data={
+        "comptesRetrait":
+        {
+            "id":1
+        },
+        
+        "clientRetrait":
+        {
+            "numeroCni":numCIN
+        }
     }
     
-  
+    this.service.retrait(data,this.transaction['id']).subscribe(
+      (response:any)=>
+        {
+          Swal.fire({
+            title: 'Retrait reussie',
+            text: 'Retrait reussie',
+            icon: 'success',
+            
+          })
+
+          console.log(response)
+        },
+        (error:any)=>
+        {
+          Swal.fire({
+            title: 'Connexion echec',
+            text: 'Connexion echec',
+            icon: 'error',
+          })
+      }
+    )
+    }
 
 }
+  
+
+

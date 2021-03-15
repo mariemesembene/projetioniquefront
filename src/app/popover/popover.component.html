@@ -1,0 +1,34 @@
+<!-- List of Text Items -->
+<ion-list>
+  <ion-item>
+    <ion-label>
+      <h3>Emetteur</h3>
+      <h1>  {{clientdepot.nomCompletClient}}</h1>
+    </ion-label>
+    
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h3>Telephone</h3>
+      <h1>{{clientdepot.telephone}}</h1>
+    </ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label>
+      <h3>numero CNI</h3>
+      <h1>{{clientdepot.numeroCni}}</h1>
+    </ion-label>
+   
+  </ion-item>
+  <ion-item>
+    <ion-label><h3>Montant</h3> <h1>{{montant.montant}}</h1></ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label><h3>Recepteur</h3 ><h1>{{clientretrait.nomCompletClient}}</h1></ion-label>
+  </ion-item>
+  <ion-item>
+    <ion-label><h3>Telephone</h3> <h1>{{clientretrait.telephone}}</h1></ion-label>
+  </ion-item>
+  <ion-button class="color" (click)=" dismiss()"  >Annuler</ion-button>
+  <ion-button (click)="eventpopover()" (click)="Depot()" style="margin-left: 33px;margin-top: 20px;" >Confirmer</ion-button>
+</ion-list>

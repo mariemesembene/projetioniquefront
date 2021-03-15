@@ -38,10 +38,16 @@ return !!this.token
 Depot(transactions:Transaction):Observable<Transaction>{
   return this.httpclient.post<Transaction>(environment.url + 'user/transactions', transactions);
 }
-getransaction(Transaction){
-    return this.httpclient.get<any>(environment.url + 'user/transactions/code?code_transaction=' + Transaction);
+getransaction(Transaction:string){
+    return this.httpclient.get(environment.url + 'user/transactions/code?code_transaction=' + Transaction);
+  }
+  retrait(transaction,id){
+    return this.httpclient.put(environment.url + 'user/transactions/'+id, transaction);
+
   }
  
-
+getroles():Observable<string>{
+  return this.httpclient.get<string>(environment.url + 'user/roles' );
+}
   
 }
