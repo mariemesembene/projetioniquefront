@@ -1,7 +1,7 @@
 
 import { Injectable } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
-import { BehaviorSubject, from, Observable } from 'rxjs';
+import { BehaviorSubject, from, Observable, of } from 'rxjs';
 import {environment} from '../environments/environment';
 import {Storage} from '@ionic/storage';
 import { Transaction } from 'src/Entity/Transaction';
@@ -49,5 +49,27 @@ getransaction(Transaction:string){
 getroles():Observable<string>{
   return this.httpclient.get<string>(environment.url + 'user/roles' );
 }
+getmontant(montant:number){
+  return this.httpclient.get(environment.url + 'user/transactions/montant?montant='+ montant );
+}
+getcompte(compte:number,id,id1){
+  return this.httpclient.get(environment.url + 'user/agence/'+id+'/compte/'+id1/+ compte);
+}
+
+fusion(id){
+  return of([
+  
+   {type:"depot" ,data:this.httpclient.get(environment.url +'user/'+id+'/depotTransactions')},
+   {type:"retrait" ,data:this.httpclient.get(environment.url +'user/'+id+'/retraitTransactions')},
+
+  ]);
   
 }
+
+getDepot(id){
+  return this.httpclient.get(environment.url +'user/'+id+'/depotTransactions')
+}
+getuser(){
+  return this.httpclient.get(environment.url + 'user');
+}
+   }

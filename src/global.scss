@@ -24,31 +24,9 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
-.alert-button.sc-ion-alert-ios:last-child{
-    background-color: #fa4a0c;
-  color:white;
-    border-radius: 50px;
-    margin-bottom: 2px;
-   // width: 20px
-  }
-  
-  .alert-button-group.sc-ion-alert-ios {
-    padding: 2px;
-  }
-  .alert-button.sc-ion-alert-md{
-    color:grey;
-    background-color: white;
-    border: solid white 1px;
-    margin-bottom: 2px;
-  }
-  .alert-button.sc-ion-alert-md:last-child{
-    background-color: #fa4a0c;
-    color:white;
-    border-radius: 50px;
-    margin-bottom: 2px;
-    // width: 20px
-    }
+
   .button-solid {
       --background: #FA4A0C;
       --color:var(--ion-color-primary-contrast, #fff)
+      
   }

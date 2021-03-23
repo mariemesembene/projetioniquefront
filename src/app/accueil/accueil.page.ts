@@ -11,7 +11,9 @@ import { AuthService } from '../auth.service';
 export class AccueilPage implements OnInit {
 hider=false;
 list:any[]
- 
+id:any
+id1:any
+ compte:any
   constructor(public navCtrl:NavController,private service:AuthService) {
     
        }
@@ -78,7 +80,21 @@ list:any[]
       }
       
     )
+    
    
   }
+  calculermontant(){
+      
+   
+    this.service.getcompte(this.compte,this.id,this.id1).subscribe( 
+    
 
+      response=>{
+        this.compte= response;
+        console.log(this.compte)
+       
+  }
+      )
+  }
+ 
 }

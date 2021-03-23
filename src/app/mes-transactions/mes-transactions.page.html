@@ -4,6 +4,72 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
 
+<ion-content>
+  <ion-row>
+    <ion-col>
+      type
+    </ion-col>
+
+    <ion-col>
+      Montant
+    </ion-col>
+    <ion-col>
+      utilisateur
+    </ion-col>
+    <ion-col>
+
+      date
+    </ion-col>
+  </ion-row>
+  <ng-container>
+    <ion-row >
+   <ion-grid style="width: 100%;" >
+     <ion-row *ngFor="let transaction of tab">
+      <ion-col> <small>{{ transaction.type }}</small> </ion-col>
+      <ion-col> <small>{{ transaction.date | date:'shortDate' }} </small></ion-col>
+      <ion-col> <small>{{ transaction.email }} </small></ion-col>
+      <ion-col><small> {{ transaction.montant}}</small> </ion-col>
+      <ion-col><small> {{ transaction.frais}}</small>  </ion-col>
+     </ion-row> 
+    </ion-grid>
+  </ion-row>
+    <!-- <ng-container *ngIf="transaction['data'] | async as sembene">
+       <ion-row *ngFor="let trans of sembene">
+         <ion-grid>
+           <ion-row>
+             <ion-col *ngIf="trans.type== 'depot'">
+               {{trans.dateDepot}}
+
+             </ion-col>
+             <ion-col *ngIf="trans.type== 'retrait'">
+              {{trans.dateRetrait}}
+
+            </ion-col>
+            <ion-col *ngIf="trans.type== 'retrait'">
+              {{trans["clientsRetrait"].nomCompletClient }}
+
+            </ion-col>
+            <ion-col *ngIf="transaction.type== 'depot'">
+              {{trans["clients"].nomCompletClient }}
+
+            </ion-col>
+            
+            <ion-col >
+              {{trans.montant}}
+
+            </ion-col>
+            <ion-col >
+              {{transaction.type}}
+
+            </ion-col>
+           </ion-row>
+         </ion-grid>
+
+       </ion-row>
+
+
+ </ng-container> -->
+
+  </ng-container>
 </ion-content>

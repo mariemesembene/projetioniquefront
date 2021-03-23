@@ -6,6 +6,8 @@ import { Transaction } from 'src/Entity/Transaction';
 import Swal from 'sweetalert2';
 import { AuthService } from '../auth.service';
 import {Storage} from '@ionic/storage';
+import { PopoverController } from '@ionic/angular';
+import { PopoverretraitComponent } from '../popoverretrait/popoverretrait.component';
 
 @Component({
   selector: 'app-retrait',
@@ -45,14 +47,16 @@ export class RetraitPage implements OnInit {
   
   
   
-  constructor(private service:AuthService,private storage:Storage) 
+  constructor(private service:AuthService,private storage:Storage,private popovercontroller:PopoverController) 
   {}
 compte:any;  
+id:any;
+id1:any
 helper=new JwtHelperService();
 
-  ngOnInit() {
+  ngOnInit( ) {
 
-  
+
   }
 
  
@@ -130,6 +134,7 @@ helper=new JwtHelperService();
       }
     )
     }
+   
 
 }
   

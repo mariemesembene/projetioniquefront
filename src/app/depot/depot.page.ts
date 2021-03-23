@@ -17,9 +17,13 @@ import { PopoverComponent } from '../popover/popover.component';
 })
 export class DepotPage implements OnInit {
 hide=false;
+mon:any
 ClientDepot:FormGroup
 montant:FormGroup
-ClientRetrait:FormGroup
+ClientRetrait:FormGroup;
+frais:any;
+total:any
+
   constructor(private fb:FormBuilder,private popovercontroller:PopoverController  , private service:AuthService) { }
 
   ngOnInit() {
@@ -57,7 +61,7 @@ ClientRetrait:FormGroup
         const modal = await this.popovercontroller.create({
           component: PopoverComponent,
           componentProps: {
-            'type':'confirmation',
+          
             'clientdepot':this.ClientDepot.value,
             'clientretrait':this.ClientRetrait.value,
             'montant':this.montant.value
@@ -67,6 +71,20 @@ ClientRetrait:FormGroup
         });
         modal.style.cssText = '--min-width: 300px; --max-width: 400px;  --height:500px;'
         return await modal.present();
+      }
+      calculermontant(){
+      
+       
+       
+     
+        this.service.getmontant(+this.mon).subscribe( 
+         
+
+          response=>{
+                this.frais= response;
+                this.total= +this.mon + (+this.frais);
+          }
+          )
       }
     
   }

@@ -29,7 +29,7 @@ ClientRetrait:FormGroup
 }
           
   
-@Input()type
+
 @Input ()clientdepot
 @Input()clientretrait
 @Input()montant

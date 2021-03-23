@@ -1,3 +1,4 @@
+
 import { Client } from "./Client"
 
 export class Transaction {
@@ -11,10 +12,12 @@ export class Transaction {
  clientDepot:Client
  clientRetrait:Client
  montant:number
+
  
  
        
     
    
   }
+  
   

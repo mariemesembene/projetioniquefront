@@ -1,9 +1,55 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>CalculateurFrais</ion-title>
-  </ion-toolbar>
-</ion-header>
 
 <ion-content>
-
-</ion-content>
+ 
+  <div class="content-header">
+      <ion-icon id="home" routerLink="/accueil" slot="start" name="home"></ion-icon>
+      <div id="logo-SA">
+      </div>
+      <div id="icone-depot">
+        <ion-icon name="calculator-outline"></ion-icon>
+      </div>
+      <div id="title-header">
+        Calculateur 
+      </div>
+      <div id="bottom-bar">
+  
+      </div>
+    </div>
+   
+    <div class="form">
+ 
+  
+      <ion-item>
+        <ion-label position="floating" >Montant</ion-label>
+        <ion-input [(ngModel)]="mon" (ionChange)="calculermontant($event)"  placeholder="175000F"></ion-input>
+      </ion-item>
+     
+      
+      </div>
+      <ion-button (click)="calculermontant()" (click)="eventpopover()" style="width: 100px; float: right ; margin-top: 5%;"> Calculer</ion-button>
+       
+    <!-- <ion-tabs>
+      <ion-tab-bar slot="bottom">
+        <ion-tab-button tab="schedule">
+          <ion-icon name="home-outline"></ion-icon>
+          
+        </ion-tab-button>
+    
+        <ion-tab-button tab="speakers">
+          <ion-icon name="sync-circle-outline"></ion-icon>
+        </ion-tab-button>
+    
+        <ion-tab-button tab="map">
+          <ion-icon name="reorder-three-outline"></ion-icon>
+         
+        </ion-tab-button>
+    
+        <ion-tab-button tab="about">
+          <ion-icon name="calculator-outline" ></ion-icon>
+        </ion-tab-button>
+      </ion-tab-bar>
+    </ion-tabs>
+   -->
+    
+  
+  </ion-content>
